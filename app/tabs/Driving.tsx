@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 import Camera from './Camera'; // Import your Camera component
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types';
-
+import GreenLight from '../../assets/shapes/GreenLight'
+import RedLight from '../../assets/shapes/RedLight'
+import YellowLight from '../../assets/shapes/YellowLight'
 
 type DrivingProps = NativeStackScreenProps<RootStackParamList, "Driving">;
 
@@ -29,6 +31,23 @@ const Driving = ({ route, navigation }: DrivingProps) => {
     }
   };
 
+  const renderShape = (color: string) => {
+    switch (color.toLowerCase()) {
+      case 'green':
+        return (
+          <GreenLight />
+        );
+      case 'red':
+        return (
+          <RedLight />
+        );
+      case 'yellow':
+        return (
+          <YellowLight />
+        );
+    }
+  }
+
   const renderOutput = () => {
     switch (outputStyle) {
       case 'shapes':
@@ -37,7 +56,7 @@ const Driving = ({ route, navigation }: DrivingProps) => {
             <View style={[styles.trafficLight, getColorStyle(trafficLightColor)]} />
           </View>
         );
-      
+
       case 'text':
         return (
           <View style={styles.textOutput}>
@@ -46,16 +65,17 @@ const Driving = ({ route, navigation }: DrivingProps) => {
             </Text>
           </View>
         );
-      
+
       case 'both':
         return (
-          <View style={styles.bothOutput}>
-            <View style={styles.detectionItem}>
-              <View style={[styles.trafficLight, getColorStyle(trafficLightColor)]} />
-              <Text style={styles.detectionText}>
-                Traffic Light: {trafficLightColor}
-              </Text>
+          <View style={{ width: "100%", height: "100%", justifyContent: "space-between" }}>
+            <View style={{flex: 1, justifyContent: "center"}}>
+              <Text style={{ display: "flex", fontFamily: "Lexend", fontSize: 60, color: "#000000", textAlign: "center" }}>{trafficLightColor.toUpperCase()}</Text>
             </View>
+            {/* <View style={styles.detectionItem}>
+              <View style={[styles.trafficLight, getColorStyle(trafficLightColor)]} />
+            </View> */}
+            {renderShape(trafficLightColor)}
           </View>
         );
     }
@@ -63,28 +83,25 @@ const Driving = ({ route, navigation }: DrivingProps) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.margin}>
-        <Pressable
-          style={({ pressed }) => [
-            styles.button,
-            pressed && styles.buttonPressed,
-          ]}
-          onPress={() => {
-            navigation.navigate("Home");
-          }}
-        >
-          <Text style={styles.buttonText}>End Drive</Text>
-        </Pressable>
-        
-        <View style={[styles.verticalContainer, styles.output]}>
-          {renderOutput()}
-        </View>
+      <Pressable
+        style={({ pressed }) => [
+          styles.button,
+          pressed && styles.buttonPressed,
+        ]}
+        onPress={() => {
+          navigation.navigate("Home");
+        }}
+      >
+        <Text style={styles.buttonText}>End Drive</Text>
+      </Pressable>
 
-        <View style={styles.cameraContainer}>
-          <Camera 
-            onTrafficLightDetected={handleTrafficLightDetected} // Pass the callback
-          />
-        </View>
+      <View style={styles.output}>
+        {renderOutput()}
+      </View>
+      <View style={styles.cameraContainer}>
+        <Camera
+          onTrafficLightDetected={handleTrafficLightDetected} // Pass the callback
+        />
       </View>
     </View>
   );
@@ -93,16 +110,18 @@ const Driving = ({ route, navigation }: DrivingProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  margin: {
-    flex: 1,
+    gap: 20,
     marginHorizontal: 20,
     marginTop: 50,
     marginBottom: 20,
   },
+  margin: {
+    flex: 1,
+  },
   verticalContainer: {
     flex: 1,
     flexDirection: "column",
+    borderRadius: 12
   },
   button: {
     backgroundColor: "#433BFF",
@@ -127,8 +146,8 @@ const styles = StyleSheet.create({
     borderWidth: 12,
     borderColor: "#E9E9EC",
     borderRadius: 12,
-    paddingVertical: 25,
-    paddingHorizontal: 15,
+    // paddingVertical: 25,
+    // paddingHorizontal: 15,
     marginVertical: 20,
     maxHeight: 600,
     alignItems: "center",
@@ -136,7 +155,8 @@ const styles = StyleSheet.create({
   },
   cameraContainer: {
     minHeight: 20,
-    aspectRatio: 16/9,
+    aspectRatio: 16 / 9,
+    borderRadius: 20
   },
   shapesOutput: {
     flexDirection: 'row',

@@ -13,6 +13,7 @@ npm-debug.*
 web-build/
 
 backend/
+env
 .env
 .temp_frame.jpg
 .video1.mp4
