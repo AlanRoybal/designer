@@ -40,7 +40,7 @@ export default function Camera({ onTrafficLightDetected }: CameraProps) {
 
   async function sendImageToBackend(base64Image: string) {
     try {
-      const response = await fetch('http://10.184.91.55:5000/detect', {
+      const response = await fetch('http://172.20.10.6:5000/detect', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
