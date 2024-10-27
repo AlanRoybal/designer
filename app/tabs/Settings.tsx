@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
-import { Car, MessageCircleMore, Blocks, ChevronLeft } from "lucide-react";
+import { Car, MessageCircleMore, Blocks, ChevronLeft } from "lucide-react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/types";
