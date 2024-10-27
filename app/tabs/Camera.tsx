@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 interface CameraProps {
-  onTrafficLightDetected: (color: string) => void; // Callback to pass the color
+  onTrafficLightDetected: (color: string) => void;
 }
 
 export default function Camera({ onTrafficLightDetected }: CameraProps) {
@@ -12,7 +12,7 @@ export default function Camera({ onTrafficLightDetected }: CameraProps) {
   const cameraRef = useRef<CameraView | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(captureAndSendImage, 1000); // Capture and send image every 0.5 seconds
+    const interval = setInterval(captureAndSendImage, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -31,9 +31,18 @@ export default function Camera({ onTrafficLightDetected }: CameraProps) {
 
   async function captureAndSendImage() {
     if (cameraRef.current) {
-      const photo = await cameraRef.current.takePictureAsync({ base64: true });
-      if (photo!.base64) {
-        sendImageToBackend(photo!.base64);
+      const photo = await cameraRef.current.takePictureAsync({
+        base64: true,
+        exif: false,  // Disable EXIF data to potentially reduce processing time
+        imageType: 'jpg', // Usually smaller than PNG
+        quality: 0.5,    // Reduce quality to speed up processing
+        skipProcessing: true, // Skip additional processing
+        // This is the key part for disabling shutter sound
+        mute: true
+      });
+      
+      if (photo?.base64) {
+        sendImageToBackend(photo.base64);
       }
     }
   }
@@ -49,7 +58,7 @@ export default function Camera({ onTrafficLightDetected }: CameraProps) {
       });
       const data = await response.json();
       if (data.color) {
-        onTrafficLightDetected(data.color); // Pass the detected color back to Driving
+        onTrafficLightDetected(data.color);
       }
     } catch (error) {
       console.error('Error sending image to backend:', error);
@@ -62,6 +71,14 @@ export default function Camera({ onTrafficLightDetected }: CameraProps) {
         ref={cameraRef}
         style={styles.camera} 
         facing={facing}
+        // Add these props to help disable sound and optimize performance
+        enableShutterSound={false}
+        mute={true}
+        videoStabilizationMode="off"
+        // Optimize camera settings for faster capture
+        preset="low"
+        focusDepth={1}
+        zoom={0}
       />
     </View>
   );

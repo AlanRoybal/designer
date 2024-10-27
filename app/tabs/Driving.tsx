@@ -1,22 +1,55 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
-import Camera from './Camera'; // Import your Camera component
+import { Audio } from 'expo-av';  // Import Audio from expo-av
+import Camera from './Camera'; 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@/types';
-import GreenLight from '../../assets/shapes/GreenLight'
-import RedLight from '../../assets/shapes/RedLight'
-import YellowLight from '../../assets/shapes/YellowLight'
+import GreenLight from '../../assets/shapes/GreenLight';
+import RedLight from '../../assets/shapes/RedLight';
+import YellowLight from '../../assets/shapes/YellowLight';
 
 type DrivingProps = NativeStackScreenProps<RootStackParamList, "Driving">;
 
 const Driving = ({ route, navigation }: DrivingProps) => {
   const { outputStyle } = route.params;
   const [trafficLightColor, setTrafficLightColor] = useState<string>("None");
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+
+  // Function to play sound based on color
+  const playSound = async (color: string) => {
+    try {
+      if (sound) {
+        await sound.unloadAsync();
+      }
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        color === 'red'
+          ? require('../../assets/audio/red.mp3')
+          : color === 'yellow'
+          ? require('../../assets/audio/yellow.mp3')
+          : require('../../assets/audio/green.mp3')
+      );
+      setSound(newSound);
+      await newSound.playAsync();
+    } catch (error) {
+      console.error("Error playing sound:", error);
+    }
+  };
 
   // Handle traffic light color detection from the Camera
   const handleTrafficLightDetected = (color: string) => {
-    setTrafficLightColor(color);
+    if (color !== trafficLightColor) {
+      setTrafficLightColor(color);
+      playSound(color.toLowerCase());
+    }
   };
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync(); // Unload sound when the component unmounts
+        }
+      : undefined;
+  }, [sound]);
 
   const getColorStyle = (color: string) => {
     switch (color.toLowerCase()) {
@@ -75,6 +108,7 @@ const Driving = ({ route, navigation }: DrivingProps) => {
             {/* <View style={styles.detectionItem}>
               <View style={[styles.trafficLight, getColorStyle(trafficLightColor)]} />
             </View> */}
+            <GreenLight/>
             {renderShape(trafficLightColor)}
           </View>
         );
