@@ -1,60 +1,31 @@
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import Camera from './Camera'; // Import your Camera component
-import { Audio } from 'expo-av';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '@/types';
+import { RootStackParamList } from "@/types";
+import { Player, MediaStates } from '@react-native-community/audio-toolkit';
 
 type DrivingProps = NativeStackScreenProps<RootStackParamList, "Driving">;
 
 const Driving = ({ route, navigation }: DrivingProps) => {
   const { outputStyle } = route.params;
   const [trafficLightColor, setTrafficLightColor] = useState<string>("None");
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
-
-  useEffect(() => {
-    return sound
-      ? () => {
-          sound.unloadAsync();
-        }
-      : undefined;
-  }, [sound]);
-
-  const playSound = async (colorSound: string) => {
-    if (sound) {
-      await sound.unloadAsync();
-    }
-    const { sound: newSound } = await Audio.Sound.createAsync(
-      getSoundFile(colorSound)
-    );
-    setSound(newSound);
-    await newSound.playAsync();
-  };
-
-  const getSoundFile = (color: string) => {
-    switch (color.toLowerCase()) {
-      case 'green':
-        return require('./assets/sounds/green.mp3');
-      case 'red':
-        return require('./assets/sounds/green.mp3');
-      case 'yellow':
-        return require('./assets/sounds/green.mp3');
-    }
-  };
 
   // Handle traffic light color detection from the Camera
   const handleTrafficLightDetected = (color: string) => {
     setTrafficLightColor(color);
-    playSound(color);
   };
 
   const getColorStyle = (color: string) => {
     switch (color.toLowerCase()) {
       case 'green':
+        new Player('../assets/sounds/green.mp3').play();
         return styles.greenLight;
       case 'red':
+        new Player('../assets/sounds/green.mp3').play();
         return styles.redLight;
       case 'yellow':
+        new Player('../assets/sounds/green.mp3').play();
         return styles.yellowLight;
       default:
         return styles.noLight;
