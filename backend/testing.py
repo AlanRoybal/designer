@@ -1,9 +1,13 @@
 import cv2
 import requests
 import time
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+api_key = os.getenv("API_KEY")
 
 # Initialize Roboflow
-api_key = "API KEY"  # Replace with your actual API key
 model_url = "https://detect.roboflow.com/traffic-lights-2-x0i7e-5vax0-cfkyw/1"  # Update with your Roboflow model URL
 
 # Video path
