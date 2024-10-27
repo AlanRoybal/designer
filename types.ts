@@ -4,4 +4,5 @@ export type RootStackParamList = {
     Driving: {
         outputStyle: 'shapes' | 'text' | 'both';
       };
+    Camera: undefined;
 }

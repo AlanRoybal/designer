@@ -2,6 +2,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
 import Camera from './Camera'; // Import your Camera component
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@/types';
 
 
 type DrivingProps = NativeStackScreenProps<RootStackParamList, "Driving">;
