@@ -1,10 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "@/types";
 
-const Driving = () => {
+type DrivingProps = NativeStackScreenProps<RootStackParamList, "Driving">;
+
+const Driving = ({ route }: DrivingProps) => {
+  const { outputStyle } = route.params;
+
   return (
     <View style={styles.container}>
-
+      <Text>Driving Screen Here</Text>
+      <Text>{outputStyle}</Text>
         
     </View>
   );

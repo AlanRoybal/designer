@@ -47,7 +47,7 @@ const Settings = ({ navigation }: Props) => {
             ]}
           >
             <Blocks size={48} style={[
-              selectedOption === 'shapes' && styles.selectedIcon
+              selectedOption === 'shapes'
             ]} />
             <Text style={[
               styles.buttonText,
@@ -64,7 +64,7 @@ const Settings = ({ navigation }: Props) => {
             ]}
           >
             <MessageCircleMore size={48} style={[
-              selectedOption === 'text' && styles.selectedIcon
+              selectedOption === 'text'
             ]} />
             <Text style={[
               styles.buttonText,
@@ -81,7 +81,7 @@ const Settings = ({ navigation }: Props) => {
             ]}
           >
             <Car size={48} style={[
-              selectedOption === 'both' && styles.selectedIcon
+              selectedOption === 'both'
             ]} />
             <Text style={[
               styles.buttonText,
