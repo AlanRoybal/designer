@@ -6,7 +6,6 @@ import { RootStackParamList } from "@/types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
-// <Button style={styles.start}/>
 const Home = ({ navigation }: Props) => {
   return (
     <View>

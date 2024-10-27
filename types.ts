@@ -1,5 +1,7 @@
 export type RootStackParamList = {
     Home: undefined;
     Settings: undefined;
-    Driving: undefined;
+    Driving: {
+        outputStyle: 'shapes' | 'text' | 'both';
+      };
 }
