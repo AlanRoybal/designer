@@ -29,9 +29,6 @@ export default function Camera() {
     <View style={styles.container}>
       <CameraView style={styles.camera} facing={facing}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
         </View>
       </CameraView>
     </View>
@@ -42,6 +39,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    maxHeight: 200,
+    aspectRatio: 16/9,
   },
   message: {
     textAlign: 'center',
