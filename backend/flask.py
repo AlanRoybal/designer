@@ -3,11 +3,16 @@ from flask import Flask, request, jsonify
 from roboflow import Roboflow
 import cv2
 import numpy as np
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+api_key = os.getenv("API_KEY")
 
 app = Flask(__name__)
 
 # Initialize Roboflow
-rf = Roboflow(api_key="API KEY")
+rf = Roboflow(api_key=api_key)
 project = rf.workspace().project("traffic-lights-2-x0i7e-5vax0-cfkyw")
 model = project.version(1).model
 
