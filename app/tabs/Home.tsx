@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { View, Text, StyleSheet, TouchableHighlight, Dimensions } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -6,13 +6,17 @@ import { RootStackParamList } from "@/types";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
+const { width, height } = Dimensions.get("window");
+
 const Home = ({ navigation }: Props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>Drivo</Text>
       <Text style={styles.text}>Ready to start driving?</Text>
       <TouchableHighlight
+        style={styles.buttonContainer}
         onPress={() => navigation.navigate("Settings")}
+        underlayColor="#3524c6" // Darken on press for feedback
       >
         <Text style={styles.start}>START</Text>
       </TouchableHighlight>
@@ -23,44 +27,39 @@ const Home = ({ navigation }: Props) => {
 export default Home;
 
 const styles = StyleSheet.create({
-  title: {
+  container: {
     flex: 1,
-    fontSize: 96,
-    alignItems: "center",
-    alignSelf: "center",
-    justifyContent: "center",
-    paddingTop: 66,
+    paddingHorizontal: width * 0.05,
+    backgroundColor: "#f8f8f8",
+  },
+  title: {
+    fontSize: width * 0.2, // Responsive font size
+    textAlign: "center",
     color: "#433BFF",
     fontWeight: "bold",
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
+    marginBottom: 20,
+    paddingTop: height * 0.1, 
   },
   text: {
-    fontSize: 24,
-    alignItems: "center",
-    alignSelf: "center",
-    justifyContent: "center",
-    flex: 1,
-    paddingTop: 7,
+    fontSize: width * 0.06,
+    textAlign: "center",
     color: "#433BFF",
     fontWeight: "bold",
+    marginBottom: 250,
+  },
+  buttonContainer: {
+    alignSelf: "center",
+    width: width * 0.6,
+    height: height * 0.1,
+    backgroundColor: "#433BFF",
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
   },
   start: {
-    flex: 1,
-    alignItems: "center",
-    alignSelf: "center",
-    justifyContent: "center",
-    borderRadius: 150,
-    backgroundColor: "#433BFF",
-    textAlign: "center",
-    textAlignVertical: "center",
-    paddingVertical: 111,
-    paddingHorizontal: 77,
-    fontSize: 40,
+    fontSize: width * 0.08,
     color: "white",
-    marginTop: 150,
     fontWeight: "bold",
   },
 });
