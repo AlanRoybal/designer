@@ -42,6 +42,10 @@ while cap.isOpened():
             prediction = response.json()
             if prediction['predictions']:
                 traffic_light_color = prediction['predictions'][0]['class']
+                temp_area = prediction['predictions'][0]['width'] * prediction['predictions'][0]['height']
+                for i in len('predictions'):
+                    if prediction['predictions'][i]['width'] * prediction['predictions'][i]['height'] > temp_area:
+                        traffic_light_color = prediction['predictions'][i]['class']
                 print(f"Frame {frame_count}: Traffic light color detected: {traffic_light_color}")
             else:
                 print(f"Frame {frame_count}: No traffic light detected.")
