@@ -46,8 +46,7 @@ const Settings = ({ navigation }: Props) => {
               selectedOption === 'shapes' && styles.selectedButton
             ]}
           >
-            <Blocks style={[
-              styles.icon,
+            <Blocks size={48} style={[
               selectedOption === 'shapes' && styles.selectedIcon
             ]} />
             <Text style={[
@@ -64,8 +63,7 @@ const Settings = ({ navigation }: Props) => {
               selectedOption === 'text' && styles.selectedButton
             ]}
           >
-            <MessageCircleMore style={[
-              styles.icon,
+            <MessageCircleMore size={48} style={[
               selectedOption === 'text' && styles.selectedIcon
             ]} />
             <Text style={[
@@ -82,8 +80,7 @@ const Settings = ({ navigation }: Props) => {
               selectedOption === 'both' && styles.selectedButton
             ]}
           >
-            <Car style={[
-              styles.icon,
+            <Car size={48} style={[
               selectedOption === 'both' && styles.selectedIcon
             ]} />
             <Text style={[
@@ -118,129 +115,110 @@ const Settings = ({ navigation }: Props) => {
 export default Settings;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  selectedButton: {
-    borderWidth: 2,
-    borderColor: "433BFF"
-    // You might want to adjust text/icon colors for selected state
-  },
-  selectedIcon: {
-    color: "white",
-  },
-  selectedText: {
-    color: "white",
-  },
-  startButtonDisabled: {
-    backgroundColor: "#433BFF",
-    opacity: 0.5,
-  },
-  startButtonText: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  startButtonTextDisabled: {
-    opacity: 0.7,
-  },
-  startButtonContainer: {
-    backgroundColor: "#433BFF",
-    borderRadius: 15,
-    paddingHorizontal: 50,
-    paddingVertical: 15,
-    marginVertical: 30,
-  },
-  verticalContainer: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  margin: {
-    margin: 20,
-    flex: 1,
-  },
-  title: {
-    fontSize: 24,
-    alignItems: "center",
-    alignSelf: "flex-start",
-    paddingTop: 30,
-    fontWeight: "bold",
-  },
-  button: {
-    backgroundColor: "#DEDCFF",
-    padding: 10,
-    borderRadius: 8,
-    width: 60,
-    // marginTop: 20,
-    // Add any other box styling you want
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonPressed: {
-    opacity: 0.5, // Optional: gives visual feedback when pressed
-  },
-  subheading: {
-    flex: 1,
-    color: "gray",
-    fontSize: 14,
-    fontWeight: "bold",
-    alignItems: "center",
-    alignSelf: "flex-start",
-    paddingTop: 5,
-    paddingBottom: 25,
-  },
-  selection: {
-    borderWidth: 2,
-    borderColor: '#DEDCFF',
-    flex: 1,
-    backgroundColor: "#DEDCFF",
-    borderRadius: 12,
-    paddingTop: 25,
-    paddingBottom: 25,
-    paddingLeft: 15,
-    alignSelf: "stretch",
-    justifyContent: "center",
-    textAlign: "center",
-    alignItems: "center",
-
-    marginVertical: 20,
-  },
-  bottomBar: {
-    backgroundColor: "#DEDCFF",
-    height: 120,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  startButtonPressed: {
-    opacity: 0.8,
-  },
-  startButton: {
-    flex: 1,
-    alignItems: "center",
-    alignSelf: "center",
-    justifyContent: "center",
-    borderRadius: 15,
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    paddingHorizontal: 50,
-    paddingVertical: 15,
-    backgroundColor: "#433BFF",
-    marginVertical: 30,
-  },
-  icon: {
-    backgroundColor: "transparent",
-    color: "black",
-    width: 48,
-    height: 48,
-  },
-  arrow: {
-    backgroundColor: "transparent",
-    color: "black",
-  },
-  buttonText: {
-    fontSize: 20,
-    color: "black",
-    fontWeight: "bold",
-  },
+    // Layout containers
+    container: {
+      flex: 1,
+    },
+    margin: {
+      flex: 1,
+      margin: 20,
+    },
+    verticalContainer: {
+      flex: 1,
+      flexDirection: "column",
+    },
+    bottomBar: {
+      backgroundColor: "#DEDCFF",
+      height: 120,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  
+    // Header elements
+    button: {
+      backgroundColor: "#DEDCFF",
+      padding: 10,
+      borderRadius: 8,
+      width: 60,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    buttonPressed: {
+      opacity: 0.5,
+    },
+    title: {
+      fontSize: 24,
+      alignSelf: "flex-start",
+      paddingTop: 30,
+      fontWeight: "bold",
+    },
+    subheading: {
+      color: "gray",
+      fontSize: 14,
+      fontWeight: "bold",
+      alignSelf: "flex-start",
+      paddingTop: 5,
+      paddingBottom: 25,
+    },
+  
+    // Selection buttons
+    selection: {
+      flex: 1,
+      backgroundColor: "#DEDCFF",
+      borderWidth: 2,
+      borderColor: "#DEDCFF",
+      borderRadius: 12,
+      paddingVertical: 25,
+      paddingHorizontal: 15,
+      marginVertical: 20,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    selectedButton: {
+      borderColor: "#433BFF",
+    },
+    buttonText: {
+      fontSize: 20,
+      color: "black",
+      fontWeight: "bold",
+    },
+    selectedText: {
+      color: "#433BFF",
+    },
+  
+    // Icons
+    arrow: {
+      width: 24,
+      height: 24,
+    },
+  
+    // Start button
+    startButtonContainer: {
+      backgroundColor: "#433BFF",
+      borderRadius: 15,
+      paddingHorizontal: 50,
+      paddingVertical: 15,
+      marginVertical: 30,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    startButton: {
+      color: "white",
+      fontSize: 24,
+      fontWeight: "bold",
+    },
+    startButtonPressed: {
+      opacity: 0.8,
+    },
+    startButtonDisabled: {
+      opacity: 0.5,
+    },
+    startButtonText: {
+      color: "white",
+      fontSize: 24,
+      fontWeight: "bold",
+    },
+    startButtonTextDisabled: {
+      opacity: 0.7,
+    },
 });
