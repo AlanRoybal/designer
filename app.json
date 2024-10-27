@@ -13,6 +13,9 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "We need access to your camera to capture images."
+      },
       "supportsTablet": true
     },
     "android": {
