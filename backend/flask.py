@@ -1,13 +1,15 @@
 # flask_server.py
 from flask import Flask, request, jsonify
 from roboflow import Roboflow
+from flask_cors import CORS
 import cv2
 import numpy as np
-
+import os
 app = Flask(__name__)
+CORS(app)
 
 # Initialize Roboflow
-rf = Roboflow(api_key=process.env.API_KEY)
+rf = Roboflow(api_key=os.env.API_KEY)
 project = rf.workspace().project("traffic-lights-2-x0i7e-5vax0-cfkyw")
 model = project.version(1).model
 
