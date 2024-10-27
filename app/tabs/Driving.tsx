@@ -1,29 +1,18 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useState, useEffect } from "react";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "@/types";
-import Camera from "./Camera";
-import type { Frame } from 'expo-camera';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import Camera from './Camera'; // Import your Camera component
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 
 type DrivingProps = NativeStackScreenProps<RootStackParamList, "Driving">;
 
 const Driving = ({ route, navigation }: DrivingProps) => {
   const { outputStyle } = route.params;
-  const [isCameraActive, setIsCameraActive] = useState(true);
   const [trafficLightColor, setTrafficLightColor] = useState<string>("None");
 
-  useEffect(() => {
-    return () => {};
-  }, []);
-
-  useEffect(() => {}, [trafficLightColor]);
-
-  const handleFrame = async (frame: Frame, prediction?: { traffic_light_color: string }) => {
-    if (prediction) {
-      if (prediction.traffic_light_color !== trafficLightColor) {
-        setTrafficLightColor(prediction.traffic_light_color);
-      }
-    }
+  // Handle traffic light color detection from the Camera
+  const handleTrafficLightDetected = (color: string) => {
+    setTrafficLightColor(color);
   };
 
   const getColorStyle = (color: string) => {
@@ -80,7 +69,6 @@ const Driving = ({ route, navigation }: DrivingProps) => {
             pressed && styles.buttonPressed,
           ]}
           onPress={() => {
-            setIsCameraActive(false);
             navigation.navigate("Home");
           }}
         >
@@ -93,9 +81,7 @@ const Driving = ({ route, navigation }: DrivingProps) => {
 
         <View style={styles.cameraContainer}>
           <Camera 
-            onFrame={handleFrame}
-            isActive={isCameraActive}
-            frameProcessingInterval={200}
+            onTrafficLightDetected={handleTrafficLightDetected} // Pass the callback
           />
         </View>
       </View>

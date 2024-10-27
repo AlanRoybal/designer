@@ -20,13 +20,6 @@ const Home = ({ navigation }: Props) => {
       >
         <Text style={styles.start}>START</Text>
       </TouchableHighlight>
-      <TouchableHighlight
-        style={styles.buttonContainer}
-        onPress={() => navigation.navigate("Camera")}
-        underlayColor="#3524c6" // Darken on press for feedback
-      >
-        <Text style={styles.start}>Camera</Text>
-      </TouchableHighlight>
     </View>
   );
 };
