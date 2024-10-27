@@ -50,7 +50,6 @@ while cap.isOpened():
                 traffic_light_color = ''
                 max_area = 0
                 light_detected = False
-                # START
                 for light in prediction['predictions']:
                     if (light['width'] * light['height']) > max_area and light['x'] > FIRST_BOUND and light['x'] < SECOND_BOUND:
                         max_area = light['width'] * light['height']
@@ -61,7 +60,6 @@ while cap.isOpened():
                 
                 if not light_detected:
                     print(f"Frame {frame_count}: No traffic light detected.")
-                # FINISH
             else:
                 print(f"Frame {frame_count}: No traffic light detected.")
         else:
