@@ -41,7 +41,12 @@ while cap.isOpened():
         if response.status_code == 200:
             prediction = response.json()
             if prediction['predictions']:
-                traffic_light_color = prediction['predictions'][0]['class']
+                traffic_light_color = ''
+                max_area = 0
+                for light in prediction['predictions']:
+                    if (light['width'] * light['height']) > max_area:
+                        max_area = light['width'] * light['height']
+                        traffic_light_color = light['class']
                 print(f"Frame {frame_count}: Traffic light color detected: {traffic_light_color}")
             else:
                 print(f"Frame {frame_count}: No traffic light detected.")

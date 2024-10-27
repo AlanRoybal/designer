@@ -7,7 +7,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Initialize Roboflow
-rf = Roboflow(api_key="API KEY")
+rf = Roboflow(api_key=process.env.API_KEY)
 project = rf.workspace().project("traffic-lights-2-x0i7e-5vax0-cfkyw")
 model = project.version(1).model
 
