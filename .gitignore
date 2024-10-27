@@ -10,6 +10,11 @@ npm-debug.*
 *.orig.*
 web-build/
 
+backend/
+.env
+.temp_frame.jpg
+.video1.mp4
+
 # macOS
 .DS_Store
 
