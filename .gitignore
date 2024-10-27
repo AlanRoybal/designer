@@ -14,9 +14,11 @@ backend/
 .env
 .temp_frame.jpg
 .video1.mp4
-*.video1.mp4
-*.temp_frame.jpg
-*.traffic3.png
+.temp_frame.jpg
+.traffic3.png
+*.testing.py
+*.flask.py
+*.trueFlask.py
 
 .venv
 
